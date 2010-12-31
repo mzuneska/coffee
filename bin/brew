@@ -1,0 +1,3 @@
+#!/usr/local/bin/ruby
+require '../coffee.rb'
+FrenchPress.new.brew

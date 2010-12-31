@@ -1,46 +1,40 @@
-class Coffee
+class FrenchPress
   
   COFFEE_STATUS = %w[C O F F E E]
-  FOUR_MINUTES = 24
+  FOUR_MINUTES = 240
   UPDATE_INTERVAL = FOUR_MINUTES / (COFFEE_STATUS.size + 1)
   
   def initialize
-    @coffee_start_time = Time.now
-    @coffee_done_time = @coffee_start_time + FOUR_MINUTES
-    @count = 0
+    @status_count = 0
   end 
   
   def brew
-    display_coffee_status until coffee_is_ready?
+    FOUR_MINUTES.times do |seconds_brewing|
+      display_coffee_status_after_enough(seconds_brewing)
+      sleep 1
+    end
     notify
   end
   
 private
   
-  def coffee_is_ready?
-    Time.now > @coffee_done_time
-  end
-  
-  def display_coffee_status
-    if display_coffee_status? then
-      p @count
-      print COFFEE_STATUS[@count]
+  def display_coffee_status_after_enough(seconds_brewing)
+    if display_coffee_status?(seconds_brewing) then
+      print COFFEE_STATUS[@status_count]
       STDOUT.flush
-      @count += 1
+      @status_count += 1
     end
   end
   
-  def display_coffee_status?
-    Time.now > (@coffee_start_time + (UPDATE_INTERVAL * (@count + 1)))
+  def display_coffee_status?(seconds_brewing)
+    (@status_count < COFFEE_STATUS.size) && (seconds_brewing >= (UPDATE_INTERVAL * (@status_count + 1)))
   end
   
   def notify
-    STDOUT.flush
-    # `say Coffee is ready!`
     print "\n"
+    `say Coffee is ready!`
+    
     # send some emails
   end
   
 end
-
-Coffee.new.brew
