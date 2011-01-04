@@ -1,3 +1,25 @@
+require 'net/smtp'
+require 'yaml'
+class Mail
+  
+  def initialize
+    @config = YAML::load_file('mail.yaml')
+  end
+  
+  def send
+    sender_name = @config['sender'].first.first
+    sender_address = @config['sender'].first.last
+    smtp_server = @config['mail']['server']
+    
+    @config['recipients'].each_pair do |recipient_name, recipient_address|
+      message = "From: #{sender_name} <#{sender_address}>\nTo: #{recipient_name} <#{recipient_address}>\nSubject: #{@config['mail']['subject']}\n#{@config['mail']['message']}"
+      Net::SMTP.start(smtp_server) { |smtp| smtp.send_message message, sender_address, recipient_address }
+    end
+    
+  end
+  
+end
+
 class FrenchPress
   
   COFFEE_STATUS = %w[C O F F E E]
@@ -33,8 +55,7 @@ private
   def notify
     print "\n"
     `say Coffee is ready!`
-    
-    # send some emails
+    Mail.new.send
   end
   
 end
