@@ -1,0 +1,13 @@
+mail:
+  server: smtp.example.com
+  subject: "Coffee is ready!"
+  message: "Come get some hot tasty coffee before it's all gone."
+
+sender:
+  coffee_brewers: coffee_brewers@example.com
+  
+recipients:
+  coffee_brewers: coffee_brewers@example.com
+  Lucky: lucky@example.com
+  Bob: bob_barista@example.com
+  Starbuck: starbuck@example.com
