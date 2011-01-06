@@ -15,4 +15,3 @@ p "Created #{brew_path}"
 FileUtils::Verbose.chmod(0744, 'coffee.rb')
 FileUtils.copy('mail.yaml.example', 'mail.yaml', :preserve => true)
 p "Created mail.yaml"
-# FileUtils::Verbose.ln_s(File.join(path_to_install_folder, 'bin', 'brew'), '/usr/local/bin/brew')
