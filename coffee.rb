@@ -1,3 +1,5 @@
+#!/usr/local/bin/ruby
+
 module Coffee
   
   class Mail
@@ -25,7 +27,7 @@ module Coffee
   class FrenchPress
   
     COFFEE_STATUS = %w[C O F F E E]
-    FOUR_MINUTES = 24
+    FOUR_MINUTES = 240
     UPDATE_INTERVAL = FOUR_MINUTES / (COFFEE_STATUS.size + 1)
   
     def initialize
@@ -62,3 +64,5 @@ module Coffee
   
   end
 end
+
+Coffee::FrenchPress.new.brew
