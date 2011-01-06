@@ -1,8 +1,6 @@
-#!/usr/local/bin/ruby
-
 module Coffee
   
-  class Mail
+  class Notify
     require 'net/smtp'
     require 'yaml'
   
@@ -10,16 +8,21 @@ module Coffee
       @config = YAML::load_file File.join(File.dirname(__FILE__), 'mail.yaml')
     end
   
-    def send
+    def mail
       sender_name = @config['sender']['name']
       sender_address = @config['sender']['address']
       smtp_server = @config['mail']['server']
     
-      @config['recipients'].each_pair do |recipient_name, recipient_address|
-        message = "From: #{sender_name} <#{sender_address}>\nTo: #{recipient_name} <#{recipient_address}>\nSubject: #{@config['mail']['subject']}\n#{@config['mail']['message']}"
-        Net::SMTP.start(smtp_server) { |smtp| smtp.send_message message, sender_address, recipient_address }
+      @config['recipients'].each do |recipient|
+        message = "From: #{sender_name} <#{sender_address}>\nTo: #{recipient['name']} <#{recipient['address']}>\nSubject: #{@config['mail']['subject']}\n#{@config['mail']['message']}"
+        Net::SMTP.start(smtp_server) { |smtp| smtp.send_message message, sender_address, recipient['address'] }
+        p "Mailed #{recipient['address']}"
       end
     
+    end
+    
+    def say
+      `say Coffee is ready!`
     end
   
   end
@@ -58,11 +61,11 @@ module Coffee
   
     def notify
       print "\n"
-      `say Coffee is ready!`
-      Coffee::Mail.new.send
+      
+      notifier = Coffee::Notify.new
+      notifier.say
+      notifier.mail
     end
   
   end
 end
-
-Coffee::FrenchPress.new.brew

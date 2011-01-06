@@ -4,10 +4,18 @@ mail:
   message: "Come get some hot tasty coffee before it's all gone."
 
 sender:
-  coffee_brewers: coffee_brewers@example.com
+  name: coffee_brewers
+  address: coffee_brewers@example.com
   
 recipients:
-  coffee_brewers: coffee_brewers@example.com
-  Lucky: lucky@example.com
-  Bob: bob_barista@example.com
-  Starbuck: starbuck@example.com
+  - name: coffee_brewers
+    address: coffee_brewers@example.com
+    
+  - name: Lucky
+    address: lucky@example.com
+    
+  - name: Bob
+    address: barista_bob@example.com
+    
+  - name: Starbuck
+    address: starbuck@example.com
