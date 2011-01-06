@@ -1,6 +1,6 @@
 Requirements
 ---------
-This script uses the mac 'say' command and therefore will only work on macs.
+This script uses the mac 'say' command and therefore will only speak on macs.
 
 Install
 -------

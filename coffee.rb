@@ -22,7 +22,13 @@ module Coffee
     end
     
     def say
-      `say Coffee is ready!`
+      mute? ? puts('Coffee is ready!') : system('say Coffee is ready!')
+    end
+    
+    private
+    
+    def mute?
+      !system('type say')
     end
   
   end
