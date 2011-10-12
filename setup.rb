@@ -2,7 +2,7 @@
 require 'fileutils'
 
 path_to_coffee = File.join(File.dirname(File.expand_path(__FILE__)), 'coffee.rb')
-brew_path = '/usr/local/bin/brew'
+brew_path = '/usr/local/bin/coffee'
 File.open(brew_path, 'w') do |file|
   # Maybe can use 'which' to get current ruby path but I think rvm switches it out
   file.write("#! /usr/bin/env ruby\n")
